@@ -95,3 +95,20 @@ async def jzsc_zj_token(**kwargs):
     print(token)
     return token
 
+
+# 浙江建设厅 idcard
+async def jzsc_zj_idcard_decrypt(text):
+    try:
+        iv = 'ABCDEF1234123412'  # 偏移量
+        key = '1234123412ABCDEF'  # 密钥
+    
+        cipher = AES.new(key.encode(), AES.MODE_CBC, iv.encode())  # 创建一个AES对象（密钥，模式，偏移量）
+        decrypt_bytes = cipher.decrypt(bytes.fromhex(text))  # 解密
+        result = str(decrypt_bytes, encoding='UTF-8')
+        print(result)
+        return re.findall('\d+',result)
+    except Exception as e:
+        print(e)
+        return None
+
+
